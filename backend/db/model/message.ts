@@ -15,5 +15,5 @@ Message.init({
     }
 }, {
     sequelize,
-    modelName: 'Message'
+    modelName: 'message'
 });
