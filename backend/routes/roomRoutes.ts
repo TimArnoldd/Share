@@ -6,12 +6,6 @@ export const router = express.Router();
 
 router.get('/create', async (req: Request, res: Response) => {
 
-    const roomId = req.cookies.roomId;
-    if (!roomId) {
-        res.status(400).send('Cookie "roomId" missing');
-        return;
-    }
-
     const { name } = req.body;
     if (!name) {
         res.status(400).send('Parameter "name" missing');
