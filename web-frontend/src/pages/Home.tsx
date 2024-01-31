@@ -1,10 +1,12 @@
 import { FC, useEffect, useState } from "react";
+import { Room } from "../models/Room";
 import { Message } from "../models/Message";
 
 
 export const Home: FC = () => {
 
     const [messages, setMessages] = useState(Array.from<Message>([]));
+    const [room, setRoom] = useState(new Room());
 
     function sendMessage() {
         const content = (document.getElementById("content") as HTMLInputElement).value;
@@ -45,6 +47,18 @@ export const Home: FC = () => {
 
     useEffect(() => {
         loadMessages();
+
+        fetch("http://localhost:3000/room", {
+            method: "GET",
+            credentials: "include",
+        }).then(async (response: Response) => {
+            if (!response.ok) {
+                window.location.href = "/setToken";
+                return;
+            }
+            const room = Room.fromJson(await response.json());
+            setRoom(room);
+        });
     }, []);
 
     return (
@@ -57,6 +71,8 @@ export const Home: FC = () => {
             </ul>
             <input type="text" name="content" id="content" />
             <button onClick={sendMessage}>Send</button>
+            <p>{room.id}</p>
+            <p>{room.name}</p>
         </>
     );
 }

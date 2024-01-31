@@ -4,6 +4,23 @@ import { Message } from '../db/model/message';
 
 export const router = express.Router();
 
+router.get('/', async (req: Request, res: Response) => {
+    
+    const roomId = req.cookies.roomId;
+    if (!roomId) {
+        res.status(400).send('Cookie "roomId" missing');
+        return;
+    }
+
+    const room = await Room.findOne({
+        where: {
+            id: roomId
+        }
+    });
+
+    res.status(200).send(room);
+});
+
 router.post('/create', async (req: Request, res: Response) => {
 
     const { name } = req.body;
@@ -11,11 +28,11 @@ router.post('/create', async (req: Request, res: Response) => {
         res.status(400).send('Parameter "name" missing');
         return;
     }
+
     const room = await Room.create({
         name: name
     });
-    console.log(room);
-    console.log(room.toJSON());
+    
     res.status(200).send(room);
 });
 
