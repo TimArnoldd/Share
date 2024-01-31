@@ -1,9 +1,10 @@
 import { FC, useEffect, useState } from "react";
+import { Message } from "../models/Message";
 
 
 export const Home: FC = () => {
 
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState(Array.from<Message>([]));
 
     function sendMessage() {
         const content = (document.getElementById("content") as HTMLInputElement).value;
@@ -34,8 +35,10 @@ export const Home: FC = () => {
                 window.location.href = "/setToken";
                 return;
             }
-            let messages = await response.json();
-            messages = messages.sort((a: any, b: any) => (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0));
+            let messages: Message[] = (await response.json()).map((message: any): Message => {
+                return Message.fromJson(message)
+            });
+            messages = messages.sort((a, b) => (a.createdAt > b.createdAt) ? 1 : ((b.createdAt > a.createdAt) ? -1 : 0));
             setMessages(messages);
         });
     }
@@ -48,7 +51,7 @@ export const Home: FC = () => {
         <>
             <h1>Hoi</h1>
             <ul>
-                {messages.map((message: any) => {
+                {messages.map((message) => {
                     return <li key={message.id}>{message.content}</li>;
                 })}
             </ul>
