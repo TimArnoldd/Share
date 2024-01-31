@@ -4,6 +4,7 @@ import { Layout } from './pages/Layout';
 import { Home } from './pages/Home';
 import { NotFound } from './pages/NotFound';
 import { SetToken } from './pages/SetToken';
+import { CreateRoom } from './pages/CreateRoom';
 
 function App() {
     return (
@@ -12,6 +13,7 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="setToken" element={<SetToken />} />
+                    <Route path="createRoom" element={<CreateRoom />} />
                     <Route path="*" element={<NotFound />} />
                 </Route>
             </Routes>

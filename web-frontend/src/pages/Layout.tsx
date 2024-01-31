@@ -6,12 +6,9 @@ export const Layout: FC = () => {
         <>
             <nav>
                 <ul>
-                    <li>
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/setToken">SetToken</Link>
-                    </li>
+                    <li><Link to="/">Home</Link></li>
+                    <li><Link to="/setToken">SetToken</Link></li>
+                    <li><Link to="/createRoom">CreateRoom</Link></li>
                 </ul>
             </nav>
 

@@ -24,6 +24,7 @@ export const Home: FC = () => {
         });
     }
 
+    // TODO: Gets executed twice
     function loadMessages() {
         fetch("http://localhost:3000/room/messages", {
             method: "GET",
@@ -48,7 +49,7 @@ export const Home: FC = () => {
             <h1>Hoi</h1>
             <ul>
                 {messages.map((message: any) => {
-                    return <li>{message.content}</li>;
+                    return <li key={message.id}>{message.content}</li>;
                 })}
             </ul>
             <input type="text" name="content" id="content" />

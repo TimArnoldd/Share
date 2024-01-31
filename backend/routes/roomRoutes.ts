@@ -4,7 +4,7 @@ import { Message } from '../db/model/message';
 
 export const router = express.Router();
 
-router.get('/create', async (req: Request, res: Response) => {
+router.post('/create', async (req: Request, res: Response) => {
 
     const { name } = req.body;
     if (!name) {
