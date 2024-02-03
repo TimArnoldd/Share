@@ -1,23 +1,27 @@
 export class Room {
-    id?: number;
-    name?: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    id: number;
+    name: string;
+    createdAt: Date;
+    updatedAt: Date;
 
-    constructor() { }
+    constructor(id: number, name: string, createdAt: Date, updatedAt: Date) {
+        this.id = id;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
 
     static fromJson(json: any): Room {
-        const room = new Room();
-        room.id = json.id;
-        room.name = json.name;
-        room.createdAt = json.createdAt;
+        const id = json.id;
+        const name = json.name;
+        let createdAt = json.createdAt;
         if (typeof json.createdAt === 'string') {
-            room.createdAt = new Date(json.createdAt);
+            createdAt = new Date(json.createdAt);
         }
-        room.updatedAt = json.updatedAt;
+        let updatedAt = json.updatedAt;
         if (typeof json.updatedAt === 'string') {
-            room.updatedAt = new Date(json.updatedAt);
+            updatedAt = new Date(json.updatedAt);
         }
-        return room;
+        return new Room(id, name, createdAt, updatedAt);
     }
 }

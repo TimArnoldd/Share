@@ -12,8 +12,7 @@ export const CreateRoom: FC = () => {
             }
         }).then(async (response: Response) => {
             if (response.ok) {
-                const room = await response.json();
-                console.log(room);
+                const room = Room.fromJson(await response.json());
                 document.getElementById("output")!.innerText = `${room.name}: ${room.id}`;
             }
         });

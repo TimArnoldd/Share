@@ -6,7 +6,7 @@ import { Message } from "../models/Message";
 export const Home: FC = () => {
 
     const [messages, setMessages] = useState(Array.from<Message>([]));
-    const [room, setRoom] = useState(new Room());
+    const [room, setRoom] = useState<Room>();
 
     function sendMessage() {
         const content = (document.getElementById("content") as HTMLInputElement).value;
@@ -71,8 +71,8 @@ export const Home: FC = () => {
             </ul>
             <input type="text" name="content" id="content" />
             <button onClick={sendMessage}>Send</button>
-            <p>{room.id}</p>
-            <p>{room.name}</p>
+            <p>{room?.id}</p>
+            <p>{room?.name}</p>
         </>
     );
 }
