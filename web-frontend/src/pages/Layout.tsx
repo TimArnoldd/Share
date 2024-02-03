@@ -2,17 +2,36 @@ import { FC } from "react";
 import { Outlet, Link } from "react-router-dom";
 
 export const Layout: FC = () => {
+
+    function toggleNavigation(force?: boolean) {
+        document.getElementById('navigation')?.classList.toggle('expanded', force);
+    }
+
     return (
         <>
-            <nav>
-                <ul>
-                    <li><Link to="/">Home</Link></li>
-                    <li><Link to="/setToken">SetToken</Link></li>
-                    <li><Link to="/createRoom">CreateRoom</Link></li>
-                </ul>
-            </nav>
+            <header>
+                <div className="logo">
+                    <Link to="/">
+                        <img src="/logo512.png" alt="Home" />
+                    </Link>
+                </div>
+                <nav id="navigation">
+                    <div>
+                        <span className="menu" onClick={() => toggleNavigation()}>
+                            <span className="hamburger"></span>
+                        </span>
+                    </div>
+                    <ul>
+                        <li><Link to="/" onClick={() => toggleNavigation(false)}><div>Home</div></Link></li>
+                        <li><Link to="/setToken" onClick={() => toggleNavigation(false)}><div>SetToken</div></Link></li>
+                        <li><Link to="/createRoom" onClick={() => toggleNavigation(false)}><div>CreateRoom</div></Link></li>
+                    </ul>
+                </nav>
+            </header>
 
-            <Outlet />
+            <article>
+                <Outlet />
+            </article>
         </>
     )
 };
