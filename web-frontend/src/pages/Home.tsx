@@ -10,7 +10,7 @@ export const Home: FC = () => {
 
     function sendMessage() {
         const content = (document.getElementById("content") as HTMLInputElement).value;
-        fetch("http://localhost:3000/message/create", {
+        fetch("/api/message/create", {
             method: "POST",
             credentials: "include",
             body: JSON.stringify({ content: content }),
@@ -29,7 +29,7 @@ export const Home: FC = () => {
 
     // TODO: Gets executed twice
     function loadMessages() {
-        fetch("http://localhost:3000/room/messages", {
+        fetch("/api/room/messages", {
             method: "GET",
             credentials: "include",
         }).then(async (response: Response) => {
@@ -48,7 +48,7 @@ export const Home: FC = () => {
     useEffect(() => {
         loadMessages();
 
-        fetch("http://localhost:3000/room", {
+        fetch("/api/room", {
             method: "GET",
             credentials: "include",
         }).then(async (response: Response) => {

@@ -1,10 +1,11 @@
 import { FC } from "react";
+import { Room } from "../models/Room";
 
 export const CreateRoom: FC = () => {
 
     function createRoom() {
         const name = (document.getElementById("name") as HTMLInputElement).value;
-        fetch("http://localhost:3000/room/create", {
+        fetch("/api/room/create", {
             method: "POST",
             body: JSON.stringify({ name: name }),
             headers: {

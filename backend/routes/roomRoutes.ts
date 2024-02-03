@@ -18,6 +18,11 @@ router.get('/', async (req: Request, res: Response) => {
         }
     });
 
+    if (!room) {
+        res.status(404).send('Room not existing');
+        return;
+    }
+
     res.status(200).send(room);
 });
 
