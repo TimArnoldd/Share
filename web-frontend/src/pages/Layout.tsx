@@ -12,7 +12,7 @@ export const Layout: FC = () => {
             <header>
                 <div className="logo">
                     <Link to="/">
-                        <img src="/logo512.png" alt="Home" />
+                        <img src="/logo.svg" alt="Home" />
                     </Link>
                 </div>
                 <nav id="navigation">
