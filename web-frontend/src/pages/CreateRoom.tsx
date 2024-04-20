@@ -3,7 +3,9 @@ import { Room } from "../models/Room";
 
 export const CreateRoom: FC = () => {
 
-    function createRoom() {
+    function createRoom(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
         const name = (document.getElementById("name") as HTMLInputElement).value;
         fetch("/api/room/create", {
             method: "POST",
@@ -22,8 +24,10 @@ export const CreateRoom: FC = () => {
     return (
         <>
             <h1>Create Room</h1>
-            <input type="text" name="name" id="name" />
-            <button onClick={createRoom}>Create new room</button>
+            <form onSubmit={createRoom}>
+                <input type="text" name="name" id="name" style={{marginRight: "20px"}} />
+                <input type="submit" value="Create new Room" />
+            </form>
             <p id="output"></p>
         </>
     )

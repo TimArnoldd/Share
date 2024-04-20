@@ -2,7 +2,9 @@ import { FC } from "react";
 
 export const SetToken: FC = () => {
 
-    function setToken() {
+    function setToken(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
         const token = (document.getElementById("token") as HTMLInputElement).value;
         document.cookie = `roomId=${token}`;
         window.location.href = "/";
@@ -11,8 +13,10 @@ export const SetToken: FC = () => {
     return (
         <>
             <h1>Set Token</h1>
-            <input type="text" name="token" id="token" />
-            <button onClick={setToken}>Set token</button>
+            <form onSubmit={setToken}>
+                <input type="text" name="token" id="token" style={{marginRight: "20px"}} />
+                <input type="submit" value="Set Token" />
+            </form>
         </>
     );
 }

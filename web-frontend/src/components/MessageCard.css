@@ -1,0 +1,22 @@
+.messageCard {
+    margin-bottom: 20px;
+    padding: 10px 10px 6px;
+    border-radius: 10px;
+    box-shadow:  5px 5px 15px #a4a4a4, -5px -5px 15px #fafafa;
+    display: flex;
+    justify-content: space-between;
+    overflow-wrap: anywhere;
+}
+
+.messageCard:hover {
+    background-color: #0000000c;
+    cursor: pointer;
+}
+
+.messageCard span {
+    width: fit-content;
+}
+
+.messageCard svg {
+    margin-left: 10px;
+}

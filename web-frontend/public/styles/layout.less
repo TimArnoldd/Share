@@ -5,13 +5,13 @@
 @tabletSize: 767px;
 @phoneSize: 479px;
 
-@bg-color: #120e1c;
-@shadow-color: #502161;
-@text-color: #fbf2ff;
-@link-color: #d875ff;
-@link-hover-color: #9700d3;
-@hamburger-icon-color: #120e1c;
-@hamburger-bg-color: #6a0094;
+@bg-color: #cfcfcf;
+@shadow-color: #a4a4a4;
+@text-color: #000000;
+@link-color: #9700d4;
+@link-hover-color: #4b0068;
+@hamburger-icon-color: #000000;
+@hamburger-bg-color: #c19ec7;
 
 *,
 *:before,
@@ -32,14 +32,35 @@ a {
     }
 }
 
+input {
+    font-family: circularXX;
+    background-color: #ffffff7d;
+    padding: 10px 10px 6px;
+    border-radius: 10px;
+    border: 1px solid black;
+
+    &[type="text"]:focus {
+        outline: none;
+    }
+
+    &[type="submit"] {
+        cursor: pointer;
+
+        &:hover {
+            background-color: #ffffff41;
+        }
+    }
+}
+
 body {
     color: @text-color;
     margin: 0;
+    min-height: 100vh;
     background-color: @bg-color;
     font-family: circularXX;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
     background-image: linear-gradient(0deg, @shadow-color -100%, rgba(0, 0, 0, 0) 40%);
 }
 
@@ -55,7 +76,7 @@ header {
         img {
             height: 70px;
             margin-left: 30px;
-            filter: invert(100%) sepia(0%) saturate(7480%) hue-rotate(171deg) brightness(109%) contrast(105%);
+            // filter: invert(100%) sepia(0%) saturate(7480%) hue-rotate(171deg) brightness(109%) contrast(105%);
         }
     }
 
@@ -86,16 +107,19 @@ header {
     }
 }
 
-article {
-    width: 1000px;
-    margin: 100px auto;
+.messageInput {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-@media screen and (max-width: @smallScreenSize) {
-    article {
-        width: 700px;
-    }
-}
+// @media screen and (max-width: @smallScreenSize) {
+//     article {
+//         width: 700px;
+//     }
+// }
 
 @media screen and (max-width: @tabletSize) {
     article {
@@ -230,5 +254,76 @@ article {
 @media screen and (max-width: @phoneSize) {
     article {
         width: 300px;
+    }
+}
+
+.messagePage {
+    width: 100%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+        margin: 0;
+        height: 50px;
+    }
+
+    p {
+        margin: 20px 0 30px;
+    }
+
+    .messageContainer {
+        display: flex;
+        flex-direction: column;
+        width: calc(100% + 60px);
+        padding: 50px 180px 50px 60px;
+        box-shadow: inset 0px 0px 30px #a4a4a4;
+        height: calc(100vh - 420px);
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltipText {
+        visibility: hidden;
+        width: 60px;
+        background-color: #00000070;;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        border-radius: 6px;
+        
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        left: 100%;
+        top: 50%;
+        margin-left: 45px;
+        margin-top: -15px;
+        
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #00000070 transparent transparent;
+        }
+    }
+    
+    &:hover .tooltipText {
+        visibility: visible;
+        opacity: 1;
     }
 }

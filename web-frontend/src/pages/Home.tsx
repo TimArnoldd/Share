@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { Room } from "../models/Room";
 import { Message } from "../models/Message";
+import { MessageCard } from "../components/MessageCard";
 
 
 export const Home: FC = () => {
@@ -8,8 +9,12 @@ export const Home: FC = () => {
     const [messages, setMessages] = useState(Array.from<Message>([]));
     const [room, setRoom] = useState<Room>();
 
-    function sendMessage() {
-        const content = (document.getElementById("content") as HTMLInputElement).value;
+    function sendMessage(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const messageInput = document.getElementById("message") as HTMLInputElement;
+        const content = messageInput.value;
+        if (!content) return;
         fetch("/api/message/create", {
             method: "POST",
             credentials: "include",
@@ -19,6 +24,7 @@ export const Home: FC = () => {
             }
         }).then(async (response: Response) => {
             if (response.ok) {
+                messageInput.value = "";
                 loadMessages();
             } else {
                 window.location.href = "/setToken";
@@ -27,7 +33,6 @@ export const Home: FC = () => {
         });
     }
 
-    // TODO: Gets executed twice
     function loadMessages() {
         fetch("/api/room/messages", {
             method: "GET",
@@ -62,17 +67,20 @@ export const Home: FC = () => {
     }, []);
 
     return (
-        <>
-            <h1>Hoi</h1>
-            <ul>
-                {messages.map((message) => {
-                    return <li key={message.id}>{message.content}</li>;
-                })}
-            </ul>
-            <input type="text" name="content" id="content" />
-            <button onClick={sendMessage}>Send</button>
+        <div className="messagePage">
+            <h1>{room?.name}</h1>
             <p>{room?.id}</p>
-            <p>{room?.name}</p>
-        </>
+            <div className="messageContainer">
+                {messages.map((message) => {
+                    return <MessageCard message={message.content} />;
+                })}
+            </div>
+            <div className="messageInput">
+                <form onSubmit={sendMessage}>
+                    <input type="text" name="message" id="message" style={{marginRight: "20px"}} />
+                    <input type="submit" value="Send" />
+                </form>
+            </div>
+        </div>
     );
 }
