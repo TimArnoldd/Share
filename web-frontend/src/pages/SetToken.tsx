@@ -6,7 +6,7 @@ export const SetToken: FC = () => {
         e.preventDefault();
 
         const token = (document.getElementById("token") as HTMLInputElement).value;
-        document.cookie = `roomId=${token}`;
+        document.cookie = `roomId=${token}; Max-Age=${60 * 60 * 24 * 365 * 420}`;
         window.location.href = "/";
     }
 
