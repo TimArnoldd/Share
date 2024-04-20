@@ -22,13 +22,13 @@ export const CreateRoom: FC = () => {
     }
 
     return (
-        <>
+        <div className="centerContent">
             <h1>Create Room</h1>
             <form onSubmit={createRoom}>
                 <input type="text" name="name" id="name" style={{marginRight: "20px"}} />
                 <input type="submit" value="Create new Room" />
             </form>
             <p id="output"></p>
-        </>
+        </div>
     )
 };

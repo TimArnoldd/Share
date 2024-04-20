@@ -67,13 +67,15 @@ export const Home: FC = () => {
     }, []);
 
     return (
-        <div className="messagePage">
+        <div className="centerContent messagePage">
             <h1>{room?.name}</h1>
             <p>{room?.id}</p>
             <div className="messageContainer">
-                {messages.map((message) => {
-                    return <MessageCard message={message.content} />;
-                })}
+                <div className="messageInnerContainer">
+                    {messages.map((message) => {
+                        return <MessageCard key={message.id} message={message.content} />;
+                    })}
+                </div>
             </div>
             <div className="messageInput">
                 <form onSubmit={sendMessage}>

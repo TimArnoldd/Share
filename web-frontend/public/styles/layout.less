@@ -21,6 +21,12 @@
 
 h1 {
     font-size: 2em;
+    height: 70px;
+    margin: 0;
+}
+
+p {
+    margin: 0;
 }
 
 a {
@@ -107,12 +113,107 @@ header {
     }
 }
 
-.messageInput {
-    height: 100px;
+.centerContent {
     width: 100%;
+    margin-top: 100px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
+
+.messagePage {
+    p {
+        margin: 0 0 30px;
+    }
+    .messageContainer {
+        width: 100%;
+        position: relative;
+        overflow-x: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -30px;
+            bottom: 0;
+            left: -30px;
+            pointer-events: none;
+            box-shadow: inset 0px 0px 30px #a4a4a4; // TODO: ARGB
+            z-index: 1;
+        }
+
+        .messageInnerContainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding: 40px 30px;
+            height: calc(100vh - 420px);
+            overflow-y: scroll;
+            scrollbar-width: none;
+    
+            .messageCard:last-child {
+                margin-bottom: 0;
+            }
+        }
+        @media (hover: hover) {
+            .messageInnerContainer {
+                padding-right: 120px;
+            }
+        }
+    }
+    
+    .messageInput {
+        height: 100px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+    .tooltipText {
+        visibility: hidden;
+        width: 60px;
+        background-color: #00000070;;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0 3px;
+        border-radius: 6px;
+        
+        /* Position the tooltip text */
+        position: absolute;
+        z-index: 1;
+        left: 100%;
+        top: 50%;
+        margin-left: 30px;
+        margin-top: -15px;
+        
+        /* Fade in tooltip */
+        opacity: 0;
+        transition: opacity 0.3s;
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #00000070 transparent transparent;
+        }
+    }
+}
+
+@media (hover: hover) {
+    .tooltip:hover .tooltipText {
+        visibility: visible;
+        opacity: 1;
+    }
 }
 
 // @media screen and (max-width: @smallScreenSize) {
@@ -122,10 +223,6 @@ header {
 // }
 
 @media screen and (max-width: @tabletSize) {
-    article {
-        width: 450px;
-    }
-
     nav {
         .menu {
             display: initial !important;
@@ -249,81 +346,22 @@ header {
             }
         }
     }
-}
-
-@media screen and (max-width: @phoneSize) {
-    article {
-        width: 300px;
-    }
-}
-
-.messagePage {
-    width: 100%;
-    margin-top: 100px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     h1 {
-        margin: 0;
-        height: 50px;
+        height: 60px;
     }
 
-    p {
-        margin: 20px 0 30px;
+    .centerContent {
+        margin-top: 50px;
     }
 
-    .messageContainer {
-        display: flex;
-        flex-direction: column;
-        width: calc(100% + 60px);
-        padding: 50px 180px 50px 60px;
-        box-shadow: inset 0px 0px 30px #a4a4a4;
-        height: calc(100vh - 420px);
-        overflow-y: scroll;
-        scrollbar-width: none;
-    }
-}
-
-.tooltip {
-    position: relative;
-    display: inline-block;
-
-    .tooltipText {
-        visibility: hidden;
-        width: 60px;
-        background-color: #00000070;;
-        color: #fff;
-        text-align: center;
-        padding: 5px 0;
-        border-radius: 6px;
-        
-        /* Position the tooltip text */
-        position: absolute;
-        z-index: 1;
-        left: 100%;
-        top: 50%;
-        margin-left: 45px;
-        margin-top: -15px;
-        
-        /* Fade in tooltip */
-        opacity: 0;
-        transition: opacity 0.3s;
-
-        &::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            right: 100%;
-            margin-top: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent #00000070 transparent transparent;
+    .messagePage {
+        p {
+            margin-bottom: 20px;
         }
-    }
-    
-    &:hover .tooltipText {
-        visibility: visible;
-        opacity: 1;
+
+        .messageContainer .messageInnerContainer {
+            height: calc(100vh - 350px);
+        }
     }
 }
