@@ -1,0 +1,36 @@
+services:
+  web:
+    build: ./web-frontend
+    container_name: web-frontend-container
+    environment:
+      - PORT=8000
+      - BACKEND_URL=http://backend-container
+      - BACKEND_PORT=3000
+    ports:
+      - "8000:8000"
+
+  backend:
+    build: ./backend
+    container_name: backend-container
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_NAME=share
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=Aa1.aaaa
+      - PORT=3000
+
+  db:
+    container_name: db
+    image: mysql
+    environment:
+      MYSQL_DATABASE: 'share'
+      MYSQL_ROOT_PASSWORD: 'Aa1.aaaa'
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55

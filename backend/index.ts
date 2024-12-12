@@ -6,7 +6,7 @@ import { router as messageRouter } from './routes/messageRoutes';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -19,10 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.route('/').get((req: Request, res: Response) => {
+    res.send('Hello World!');
+});
 app.use('/api/room', roomRouter);
 app.use('/api/message', messageRouter);
 
-app.use(function (req: Request, res: Response) {
+app.use((req: Request, res: Response) => {
     res.status(404).send('404 Not Found');
 });
 
