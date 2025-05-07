@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const token = ref('');
+const checkCookie = inject('checkCookie') as Function;
+
 const router = useRouter();
 
 function setToken() {
     document.cookie = `token=${token.value}; path=/; Max-Age=${60 * 60 * 24 * 400}`; // 400 days = max value
-    router.push('/');
+    checkCookie();
+    router.push('/chat');
 }
 </script>
 

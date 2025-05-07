@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useBackend } from '@/helpers/backend';
 
@@ -8,6 +8,7 @@ const token = ref('');
 
 const backend = useBackend();
 const router = useRouter();
+const checkCookie = inject('checkCookie') as Function;
 
 async function createRoom() {
     if (!roomName.value) {
@@ -20,7 +21,8 @@ async function createRoom() {
     }
 
     document.cookie = `token=${response.data.room_id}; path=/; Max-Age=${60 * 60 * 24 * 400}`; // 400 days = max value
-    router.push('/');
+    checkCookie();
+    router.push('/chat');
 }
 </script>
 

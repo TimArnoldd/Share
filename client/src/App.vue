@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
-import { ref, onMounted } from 'vue';
-
+import { ref, onMounted, provide } from 'vue';
 
 const tokenExists = ref(false);
 
@@ -21,6 +20,7 @@ function checkCookie() {
 }
 
 onMounted(checkCookie);
+provide('checkCookie', checkCookie);
 </script>
 
 <template>
