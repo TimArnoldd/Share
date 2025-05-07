@@ -1,6 +1,6 @@
-# reLearn server (backend)
+# reLearn client (frontend)
 
-This is the server side of the Share project. It is a RESTful API built with Node.js and Express.js. It is responsible for handling all the requests from the client side, interacting with the database and handling notifications.
+This is the frontend of the Share project. It is a Vue.js SPA.
 
 ### Commands
 
@@ -31,3 +31,4 @@ Start built application for development:
 ```sh
 npm run start:build
 ```
+

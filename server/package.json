@@ -8,6 +8,7 @@
   "type": "module",
   "scripts": {
     "start": "tsx --watch --env-file-if-exists=.env index.ts",
+    "dev": "tsx --watch --env-file-if-exists=.env index.ts",
     "start:build": "node --env-file-if-exists=.env dist/index.js",
     "build": "tsc",
     "type-check": "tsc --noEmit",

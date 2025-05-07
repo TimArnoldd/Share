@@ -3,6 +3,7 @@ A system to easily share things
 
 ### Applications
 
+- [Client/Frontend](./client) ([README.md](./client/README.md))
 - [Server/Backend](./server) ([README.md](./server/README.md))
 
 ### Use correct node version
