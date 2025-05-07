@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
+import { ref, onMounted } from 'vue';
+
+
+const tokenExists = ref(false);
 
 const toggleHamburgerMenu = () => {
     document.getElementById('navigation')?.classList.toggle('expanded');
@@ -10,6 +14,13 @@ const disableHamburgerMenu = () => {
     document.getElementById('navigation')?.classList.remove('expanded');
     document.getElementsByTagName('body')[0].classList.remove('no-scroll');
 }
+
+function checkCookie() {
+    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    tokenExists.value = !!token;
+}
+
+onMounted(checkCookie);
 </script>
 
 <template>
@@ -25,6 +36,9 @@ const disableHamburgerMenu = () => {
                     </span>
                 </div>
                 <div class="nav-links">
+                    <template v-if="tokenExists">
+                        <RouterLink to="/chat" @click="disableHamburgerMenu">Chat</RouterLink>
+                    </template>
                     <RouterLink to="/create-room" @click="disableHamburgerMenu">Create Room</RouterLink>
                     <RouterLink to="/set-token" @click="disableHamburgerMenu">Set Token</RouterLink>
                 </div>

@@ -1,7 +1,7 @@
 {
     "name": "Share.vodka",
     "short_name": "Share.vodka",
-    "start_url": "/",
+    "start_url": "/chat",
     "display": "standalone",
     "background_color": "#4B4237",
     "theme_color": "#D5A021",
@@ -9,8 +9,7 @@
         {
             "src": "/favicon.png",
             "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable"
+            "type": "image/png"
         }
     ]
 }

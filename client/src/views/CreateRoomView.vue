@@ -7,6 +7,7 @@ const roomName = ref('');
 const token = ref('');
 
 const backend = useBackend();
+const router = useRouter();
 
 async function createRoom() {
     if (!roomName.value) {
@@ -18,8 +19,8 @@ async function createRoom() {
         return;
     }
 
-    const room = response.data;
-    token.value = room.room_id;
+    document.cookie = `token=${response.data.room_id}; path=/; Max-Age=${60 * 60 * 24 * 400}`; // 400 days = max value
+    router.push('/');
 }
 </script>
 

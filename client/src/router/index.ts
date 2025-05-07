@@ -18,14 +18,19 @@ const router = createRouter({
             component: () => import('@/views/AboutView.vue'),
         },
         {
+            path: '/chat',
+            name: 'chat',
+            component: () => import('@/views/ChatView.vue'),
+        },
+        {
             path: '/create-room',
             name: 'create-room',
-            component: () => import('@/views/CreateRoom.vue'),
+            component: () => import('@/views/CreateRoomView.vue'),
         },
         {
             path: '/set-token',
             name: 'set-token',
-            component: () => import('@/views/SetToken.vue'),
+            component: () => import('@/views/SetTokenView.vue'),
         },
     ],
     scrollBehavior(to, from, savedPosition) {
