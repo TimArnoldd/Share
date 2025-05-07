@@ -21,6 +21,10 @@ services:
       - DATABASE_USER=root
       - DATABASE_PASSWORD=Aa1.aaaa
       - PORT=3000
+      - WEB_FRONTEND_URL=http://web-frontend-container
+      - WEB_FRONTEND_PORT=8000
+    ports:
+      - "3000:3000"
 
   db:
     container_name: db

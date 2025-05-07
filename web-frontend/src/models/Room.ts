@@ -11,16 +11,16 @@ export class Room {
         this.updatedAt = updatedAt;
     }
 
-    static fromJson(json: any): Room {
-        const id = json.id;
-        const name = json.name;
-        let createdAt = json.createdAt;
-        if (typeof json.createdAt === 'string') {
-            createdAt = new Date(json.createdAt);
+    static fromObject(object: any): Room {
+        const id = object.id;
+        const name = object.name;
+        let createdAt = object.createdAt;
+        if (typeof object.createdAt === 'string') {
+            createdAt = new Date(object.createdAt);
         }
-        let updatedAt = json.updatedAt;
-        if (typeof json.updatedAt === 'string') {
-            updatedAt = new Date(json.updatedAt);
+        let updatedAt = object.updatedAt;
+        if (typeof object.updatedAt === 'string') {
+            updatedAt = new Date(object.updatedAt);
         }
         return new Room(id, name, createdAt, updatedAt);
     }

@@ -8,5 +8,5 @@ COPY package.json /app/
 COPY tsconfig.json /app/
 
 RUN npm install
-
-CMD ["npm", "start"]
+RUN npm run build
+CMD ["npx", "serve", "-s", "build", "-l", "8000"]
