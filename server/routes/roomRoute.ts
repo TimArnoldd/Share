@@ -13,7 +13,7 @@ roomRoute.get('/', async (req, res) => {
 
     const room = await Room.findByPk(token);
     if (!room) {
-        res.status(400).json({ message: 'Room not found' });
+        res.status(404).json({ message: 'Room not found' });
         return;
     }
 

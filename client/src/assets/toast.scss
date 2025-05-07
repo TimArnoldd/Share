@@ -1,0 +1,24 @@
+.mosha__toast__content {
+    color: base.$color-background !important;
+    font-family: inherit !important;
+}
+
+.mosha__toast__content__text {
+    font-size: inherit !important;
+}
+
+.mosha__toast__content__description {
+    font-size: 0.85rem !important;
+}
+
+.mosha__icon svg {
+    fill: base.$color-background;
+}
+
+.mosha__toast__close-icon::before {
+    color: base.$color-background !important;
+}
+
+.mosha__toast__progress {
+    background-color: rgba(base.$color-background, 60%) !important;
+}

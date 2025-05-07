@@ -1,35 +1,37 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import { useBackend } from '@/helpers/backend';
+import { toastError } from '@/helpers/toast';
+import { useRouter } from 'vue-router';
+import { getTokenFromCookie } from '@/helpers/cookie';
 
 const loading = ref(true);
-const tokenExists = ref(false);
 const messages = ref([] as { content: string, createdAt: string, updatedAt: string }[]);
 const messageContent = ref('');
 const room = ref({ name: 'loading...' } as { room_id: string, name: string });
 
 const backend = useBackend();
+const router = useRouter();
 
 async function checkCookieAndFetchData() {
     loading.value = true;
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
-    if (token) {
-        tokenExists.value = true;
+    if (getTokenFromCookie()) {
         fetchRoomName();
         fetchMessages();
     } else {
-        tokenExists.value = false;
-        loading.value = false;
+        toastError('No token found', 'Please set a token or create a room.');
+        router.push('/');
     }
 }
 
 async function fetchRoomName() {
     try {
-        const response = await backend.get('/room');
-
-        if (response.status !== 200) {
-            throw new Error('Failed to room');
-        }
+        const response = await backend.get('/room').catch((error) => {
+            if (error.response?.data) {
+                throw new Error('There is no valid token set. Please set a token or create a room.');
+            }
+            throw new Error('An error occurred while loading the room.');
+        });
         room.value = response.data;
     } catch (error) {
         console.error('Error fetching room:', error);
@@ -39,34 +41,37 @@ async function fetchRoomName() {
 async function fetchMessages() {
     loading.value = true;
     try {
-        const response = await backend.get('/message/all');
-
-        if (response.status !== 200) {
-            throw new Error('Failed to fetch messages');
-        }
+        const response = await backend.get('/message/all').catch((error) => {
+            if (error.response?.data) {
+                throw new Error('There is no valid token set. Please set a token or create a room.');
+            }
+            throw new Error('An error occurred while loading the messages.');
+        });
         messages.value = response.data;
-    } catch (error) {
-        console.error('Error fetching messages:', error);
-    } finally {
         loading.value = false;
+    } catch (error) {
+        toastError('Error loading messages', error.message);
+        console.error('Error fetching messages:', error);
     }
 }
 
 async function sendMessage() {
-    if (!messageContent.value) {
+    const message = messageContent.value.trim();
+    if (!message) {
+        toastError('Please enter a message.');
+        messageContent.value = '';
         return;
     }
 
     try {
-        const response = await backend.post('/message/create', { content: messageContent.value });
-
-        if (response.status !== 201) {
-            throw new Error('Failed to send message: ' + response.data.message);
-        }
+        const response = await backend.post('/message/create', { content: message }).catch((error) => {
+            throw new Error('An error occurred while sending the message.');
+        });
         const newMessage = response.data;
         messages.value.push(newMessage);
         messageContent.value = '';
     } catch (error) {
+        toastError('Error sending message', error.message);
         console.error('Error sending message:', error);
     }
 }

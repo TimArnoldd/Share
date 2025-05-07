@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router';
 import { ref, onMounted, provide } from 'vue';
+import { getTokenFromCookie } from './helpers/cookie';
 
 const tokenExists = ref(false);
 
@@ -15,7 +16,7 @@ const disableHamburgerMenu = () => {
 }
 
 function checkCookie() {
-    const token = document.cookie.split('; ').find(row => row.startsWith('token='));
+    const token = getTokenFromCookie();
     tokenExists.value = !!token;
 }
 

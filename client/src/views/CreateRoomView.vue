@@ -2,6 +2,8 @@
 import { ref, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useBackend } from '@/helpers/backend';
+import { toastError, toastSuccess } from '@/helpers/toast';
+import { setTokenInCookie } from '@/helpers/cookie';
 
 const roomName = ref('');
 const token = ref('');
@@ -11,18 +13,24 @@ const router = useRouter();
 const checkCookie = inject('checkCookie') as Function;
 
 async function createRoom() {
-    if (!roomName.value) {
-        return;
-    }
+    try {
+        if (!roomName.value) {
+            toastError('Please enter a name.');
+            return;
+        }
 
-    const response = await backend.post('/room/create', { roomName: roomName.value });
-    if (response.status !== 201) {
-        return;
-    }
+        const response = await backend.post('/room/create', { roomName: roomName.value }).catch((error) => {
+            throw new Error('An error occurred while creating the room.');
+        });
 
-    document.cookie = `token=${response.data.room_id}; path=/; Max-Age=${60 * 60 * 24 * 400}`; // 400 days = max value
-    checkCookie();
-    router.push('/chat');
+        setTokenInCookie(response.data.room_id);
+        toastSuccess('Room created successfully!');
+        checkCookie();
+        router.push('/chat');
+    } catch (error) {
+        toastError('Error creating room', error.message);
+        console.error('Error creating room:', error);
+    }
 }
 </script>
 
