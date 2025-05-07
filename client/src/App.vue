@@ -25,10 +25,8 @@ const disableHamburgerMenu = () => {
                     </span>
                 </div>
                 <div class="nav-links">
-                    <RouterLink to="/daily-input" @click="disableHamburgerMenu">Lerneinträge</RouterLink>
-                    <RouterLink to="/timetable" @click="disableHamburgerMenu">Stundenplan</RouterLink>
-                    <RouterLink to="/repetition" @click="disableHamburgerMenu">Repetitionen </RouterLink>
-                    <RouterLink to="/user-settings" @click="disableHamburgerMenu">Konto</RouterLink>
+                    <RouterLink to="/create-room" @click="disableHamburgerMenu">Create Room</RouterLink>
+                    <RouterLink to="/set-token" @click="disableHamburgerMenu">Set Token</RouterLink>
                 </div>
             </nav>
         </header>

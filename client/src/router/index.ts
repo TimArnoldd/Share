@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '@/views/HomeView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -15,9 +15,25 @@ const router = createRouter({
             // route level code-splitting
             // this generates a separate chunk (About.[hash].js) for this route
             // which is lazy-loaded when the route is visited.
-            component: () => import('../views/AboutView.vue'),
+            component: () => import('@/views/AboutView.vue'),
+        },
+        {
+            path: '/create-room',
+            name: 'create-room',
+            component: () => import('@/views/CreateRoom.vue'),
+        },
+        {
+            path: '/set-token',
+            name: 'set-token',
+            component: () => import('@/views/SetToken.vue'),
         },
     ],
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            return false; // Let browser handle the scroll to anchor
+        }
+        return { top: 0 };
+    }
 })
 
 export default router
