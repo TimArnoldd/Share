@@ -1,0 +1,45 @@
+@use 'sass:color';
+
+$color-text: #dadada;
+$color-darker-text: #a1a1aa;
+$color-highlight: #daff01;
+$color-darker-highlight: #98ae13;
+$color-highlight-alternative: #5c2b69;
+$color-red: #970000;
+$color-darker-red: #640000;
+$color-background: #101113;
+$color-lighter-background: #1a1c1e;
+$color-disabled-text: $color-darker-text;
+$color-disabled-background: $color-lighter-background;
+
+@mixin black-to-highlight {
+    filter: invert(91%) sepia(62%) saturate(3515%) hue-rotate(12deg) brightness(104%) contrast(105%);
+}
+
+// Breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+$pagewidth: 80%;
+$pagewidth-sm: 500px;
+$pagewidth-md: 700px;
+$pagewidth-lg: 900px;
+$pagewidth-xl: 1100px;
+
+@font-face {
+    font-family: CircularXX;
+    src: url(./CircularXX.woff2);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 1.2em;
+    font-family: 'CircularXX', sans-serif;
+}

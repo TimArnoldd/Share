@@ -1,0 +1,16 @@
+{
+    "name": "Share.vodka",
+    "short_name": "Share.vodka",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#4B4237",
+    "theme_color": "#D5A021",
+    "icons": [
+        {
+            "src": "/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
