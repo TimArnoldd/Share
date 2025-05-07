@@ -1,0 +1,32 @@
+{
+    email arnold.tim2005@gmail.com
+}
+
+share.vodka {
+    # Handle API requests
+    handle /api/* {
+        reverse_proxy server:3000
+    }
+
+    # Handle all other requests (frontend)
+    handle {
+        reverse_proxy client:80
+    }
+
+    # Enable Gzip compression
+    encode gzip
+
+    # Add security headers
+    header {
+        # Enable HSTS
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        # Prevent browsers from trying to guess the content type
+        X-Content-Type-Options "nosniff"
+        # Enable XSS filter
+        X-XSS-Protection "1; mode=block"
+        # Prevent clickjacking
+        X-Frame-Options "DENY"
+        # Enable referrer policy
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}

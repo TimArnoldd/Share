@@ -1,0 +1,73 @@
+services:
+  caddy:
+    image: caddy:2
+    container_name: share-caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - internal
+
+  mysql:
+    image: mysql:8.0
+    container_name: share-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: share
+      MYSQL_USER: backend
+      MYSQL_PASSWORD: verysecurepassword
+      MYSQL_ROOT_PASSWORD: rootpassword
+    networks:
+      - internal
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: share-server
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=mysql
+      - DB_USER=backend
+      - DB_PASSWORD=verysecurepassword
+      - DB_NAME=share
+    networks:
+      - internal
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: share-client
+    restart: unless-stopped
+    networks:
+      - internal
+    depends_on:
+      - server
+
+volumes:
+  mysql-data:
+  caddy_data:
+  caddy_config:
+
+
+networks:
+  internal:
+    driver: bridge
