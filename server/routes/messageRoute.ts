@@ -18,7 +18,6 @@ messageRoute.get('/all', async (req, res) => {
     }
 
     const messages = await room.getMessages();
-    messages.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime()); // TODO: Client could also do this to save server resources
     res.status(200).json(messages);
 });
 
