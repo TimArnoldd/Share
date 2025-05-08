@@ -112,6 +112,16 @@ async function sendMessage() {
     }
 }
 
+async function copyToClipboard(text: string) {
+    try {
+        await navigator.clipboard.writeText(text);
+        toastSuccess('Copied to clipboard');
+    } catch (err: any) {
+        toastError('Failed to copy to clipboard', err.message);
+        console.error('Failed to copy:', err.message);
+    }
+}
+
 watch(messages, () => {
     const sortedMessages = [...messages.value].sort((a, b) =>
         a.createdAt.getTime() - b.createdAt.getTime()
@@ -147,7 +157,7 @@ onMounted(checkCookieAndFetchData);
                 <div class="message-group-date">{{ formatDisplayDate(new Date(group.messages[0].createdAt)) }}</div>
                 <div class="message-group-messages">
                     <div v-for="(message, index) in group.messages" :key="message.message_id" class="message">
-                        <div class="message-content">{{ message.content }}</div>
+                        <div class="message-content" @click="copyToClipboard(message.content)">{{ message.content }}</div>
                         <div class="message-timestamp">{{ `${message.updatedAt.getHours().toString().padStart(2, '0')}:${message.updatedAt.getMinutes().toString().padStart(2, '0')}` }}</div>
                     </div>
                 </div>
