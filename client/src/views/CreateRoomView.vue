@@ -27,7 +27,7 @@ async function createRoom() {
         toastSuccess('Room created successfully!');
         checkCookie();
         router.push('/chat');
-    } catch (error) {
+    } catch (error: any) {
         toastError('Error creating room', error.message);
         console.error('Error creating room:', error);
     }

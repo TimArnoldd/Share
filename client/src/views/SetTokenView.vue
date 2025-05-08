@@ -28,7 +28,7 @@ async function setToken() {
         toastSuccess('Token successfully set!');
         checkCookie();
         router.push('/chat');
-    } catch (error) {
+    } catch (error: any) {
         toastError('Error setting token', error.message);
         console.error('Error setting token:', error);
     }
