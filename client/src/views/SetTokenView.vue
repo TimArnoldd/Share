@@ -4,11 +4,13 @@ import { getTokenFromCookie, setTokenInCookie } from '@/helpers/cookie';
 import { toastError, toastSuccess } from '@/helpers/toast';
 import { inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router'
 
 const token = ref('');
 const checkCookie = inject('checkCookie') as Function;
 
 const router = useRouter();
+const route = useRoute()
 const backend = useBackend();
 
 async function setToken() {
@@ -33,10 +35,16 @@ async function setToken() {
         console.error('Error setting token:', error);
     }
 }
+
+if (route.params.token) {
+    token.value = route.params.token as string;
+    setToken()
+}
 </script>
 
 <template>
     <h1>Set Token</h1>
     <input v-model="token" type="text" name="token" id="token">
     <button @click="setToken">Set Token</button>
+    <p>{{ $route.params.token }}</p>
 </template>

@@ -28,7 +28,7 @@ const router = createRouter({
             component: () => import('@/views/CreateRoomView.vue'),
         },
         {
-            path: '/set-token',
+            path: '/set-token/:token?',
             name: 'set-token',
             component: () => import('@/views/SetTokenView.vue'),
         },

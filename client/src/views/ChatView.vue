@@ -5,6 +5,7 @@ import { toastError, toastSuccess } from '@/helpers/toast';
 import { useRouter } from 'vue-router';
 import { getTokenFromCookie } from '@/helpers/cookie';
 import { Message } from '@/viewModels/message';
+import { copyToClipboard } from '@/helpers/clipboard';
 
 
 const messages = ref([] as Message[]);
@@ -112,14 +113,9 @@ async function sendMessage() {
     }
 }
 
-async function copyToClipboard(text: string) {
-    try {
-        await navigator.clipboard.writeText(text);
-        toastSuccess('Copied to clipboard');
-    } catch (error: any) {
-        toastError('Failed to copy to clipboard', error.message);
-        console.error('Failed to copy:', error.message);
-    }
+async function copyRoomLink() {
+    const link = `${window.location.origin}/set-token/${room.value.room_id}`;
+    await copyToClipboard(link);
 }
 
 watch(messages, () => {
@@ -151,7 +147,7 @@ onMounted(checkCookieAndFetchData);
     <h1 v-else>{{ room.name }}</h1>
     <div v-if="loading">Loading messages...</div>
     <template v-else>
-        <p>Room ID: {{ room.room_id }}</p>
+        <p>Room ID: <a @click="copyToClipboard(room.room_id);">{{ room.room_id }}</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a @click="copyRoomLink()">Copy direct link</a></p>
         <div class="messages">
             <div v-for="group in messagesByDate" :key="group.date" class="message-group">
                 <div class="message-group-date">{{ formatDisplayDate(new Date(group.messages[0].createdAt)) }}</div>
