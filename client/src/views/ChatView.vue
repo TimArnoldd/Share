@@ -159,7 +159,7 @@ onMounted(checkCookieAndFetchData);
                 </div>
             </div>
         </div>
-        <div>
+        <div class="input-field">
             <input v-model="messageContent" type="text" name="content" id="content">
             <button @click="sendMessage">Send</button>
         </div>
@@ -167,10 +167,6 @@ onMounted(checkCookieAndFetchData);
 </template>
 
 <style scoped lang="scss">
-hr {
-    margin: 0;
-}
-
 .messages {
     display: flex;
     flex-direction: column;
@@ -204,6 +200,7 @@ hr {
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
 
             .message {
                 display: flex;
@@ -220,9 +217,10 @@ hr {
                     padding: 5px 10px;
                     align-items: center;
                     width: fit-content;
-                    min-width: 200px;
+                    min-width: 100px;
                     border: 1px solid base.$color-highlight-alternative;
                     border-radius: 10px;
+                    overflow-wrap: anywhere;
 
                     &:hover {
                         background-color: base.$color-lighter-background;
@@ -240,5 +238,11 @@ hr {
             }
         }
     }
+}
+
+.input-field {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }
 </style>

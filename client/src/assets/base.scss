@@ -34,12 +34,6 @@ $pagewidth-xl: 1100px;
     src: url(./CircularXX.woff2);
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-}
-
 html {
     font-size: 1.2em;
     font-family: 'CircularXX', sans-serif;

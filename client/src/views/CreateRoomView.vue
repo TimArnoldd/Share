@@ -37,6 +37,7 @@ async function createRoom() {
 <template>
     <h1>Create Room</h1>
     <input v-model="roomName" type="text" name="room-name" id="room-name">
-    <button @click="createRoom">Create Room</button>
+    <br>
+    <button style="margin-top: 30px;" @click="createRoom">Create Room</button>
     <p>{{ token }}</p>
 </template>

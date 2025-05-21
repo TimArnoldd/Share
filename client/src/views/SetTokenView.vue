@@ -45,6 +45,6 @@ if (route.params.token) {
 <template>
     <h1>Set Token</h1>
     <input v-model="token" type="text" name="token" id="token">
-    <button @click="setToken">Set Token</button>
-    <p>{{ $route.params.token }}</p>
+    <br>
+    <button style="margin-top: 30px;" @click="setToken">Set Token</button>
 </template>

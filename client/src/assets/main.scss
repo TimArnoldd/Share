@@ -1,3 +1,13 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+*:focus-visible {
+    outline: solid base.$color-darker-highlight !important;
+}
+
 body {
     margin: 0;
     min-height: 100vh;
@@ -59,13 +69,14 @@ hr {
 
 button,
 select,
-textarea {
+textarea,
+input {
     font-size: inherit;
     font-family: inherit;
     border: 1px solid base.$color-highlight;
     padding: 8px 10px;
     color: base.$color-text;
-    background-color: transparent;
+    background-color: base.$color-lighter-background;
 }
 
 button {
@@ -83,6 +94,10 @@ select {
         color: initial;
         background-color: initial;
     }
+}
+
+input {
+    background-color: base.$color-lighter-background;
 }
 
 .highlight {
