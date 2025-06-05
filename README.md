@@ -84,3 +84,28 @@ docker-compose down
 ```
 
 When starting the application without the `-d` flag and cancelling with `ctrl + c` afterwards, it might happen that some services like caddy won't get shut down.
+
+
+
+### DB-Backups
+
+Database backups can be made by dumping the entire database to an SQL file. The file can then be loaded in the database container for rolling back or migrating to a other server/container.
+
+The commands need to be run while the container is running. The `backup.sql`file will be saved to the current working directory on the host machine.
+
+
+
+Command to create the backup file:
+
+```sh
+docker exec share-db mysqldump -u root -prootpassword --all-databases > backup.sql
+```
+
+
+
+Command to apply the backup:
+
+```sh
+docker exec -i share-db mysql -u root -prootpassword < backup.sql
+```
+
