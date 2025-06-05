@@ -10,15 +10,16 @@ import { copyToClipboard } from '@/helpers/clipboard';
 
 const messages = ref([] as Message[]);
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const loading = ref(true);
 const messageContent = ref('');
 const room = ref({ name: 'loading...' } as { room_id: string, name: string });
+const messagesByDate = ref([] as { date: string, messages: Message[] }[]);
 
 const backend = useBackend();
 const router = useRouter();
 
-const messagesByDate = ref([] as { date: string, messages: Message[] }[]);
 
 function formatDate(date: Date): string {
     return `${date.getDate().toString().padStart(2, '0')}. ${months[date.getMonth()]} ${date.getFullYear()}`;
@@ -34,6 +35,13 @@ function formatDisplayDate(date: Date): string {
     } else if (formatDate(date) === formatDate(yesterday)) {
         return "Yesterday";
     } else {
+        for (let i = 0; i < 5; i++) {
+            const pastDate = new Date(today);
+            pastDate.setDate(pastDate.getDate() - 2 - i);
+            if (formatDate(date) === formatDate(pastDate)) {
+                return daysOfWeek[pastDate.getDay()];
+            }
+        }
         return formatDate(date);
     }
 }
@@ -216,7 +224,7 @@ onMounted(checkCookieAndFetchData);
                 }
 
                 .message-content {
-                    padding: 5px 10px;
+                    padding: 5px 10px 4px;
                     align-items: center;
                     width: fit-content;
                     min-width: 100px;
