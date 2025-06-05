@@ -137,6 +137,8 @@ watch(messages, () => {
         date,
         messages: msgs
     }));
+    // sort messages by date descending
+    messagesByDate.value.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }, { deep: true });
 
 onMounted(checkCookieAndFetchData);
@@ -160,7 +162,7 @@ onMounted(checkCookieAndFetchData);
             </div>
         </div>
         <div class="input-field">
-            <input v-model="messageContent" type="text" name="content" id="content">
+            <input v-model="messageContent" type="text" name="content" id="content" @keyup.enter="sendMessage" placeholder="Type your message..." />
             <button @click="sendMessage">Send</button>
         </div>
     </template>
@@ -169,7 +171,7 @@ onMounted(checkCookieAndFetchData);
 <style scoped lang="scss">
 .messages {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     max-height: 50vh;
     overflow-y: auto;
@@ -186,7 +188,7 @@ onMounted(checkCookieAndFetchData);
         margin: 15px;
         border-top: 1px solid base.$color-darker-highlight-alternative;
 
-        &:first-child {
+        &:last-child {
             border-top: none;
             margin-top: 0;
         }
