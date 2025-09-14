@@ -79,6 +79,10 @@ input {
     background-color: base.$color-lighter-background;
 }
 
+textarea {
+    margin: 0;
+}
+
 button {
     cursor: pointer;
 

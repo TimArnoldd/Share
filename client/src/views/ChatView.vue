@@ -170,7 +170,7 @@ onMounted(checkCookieAndFetchData);
             </div>
         </div>
         <div class="input-field">
-            <input v-model="messageContent" type="text" name="content" id="content" @keyup.enter="sendMessage" placeholder="Type your message..." />
+            <textarea v-model="messageContent" name="content" id="content" rows="1" title="Use shift + enter to wrap a line" @keypress.enter.exact.prevent="sendMessage" placeholder="Type your message..."></textarea>
             <button @click="sendMessage">Send</button>
         </div>
     </template>
@@ -231,6 +231,7 @@ onMounted(checkCookieAndFetchData);
                     border: 1px solid base.$color-highlight-alternative;
                     border-radius: 10px;
                     overflow-wrap: anywhere;
+                    white-space: pre-wrap;
 
                     &:hover {
                         background-color: base.$color-lighter-background;
@@ -254,5 +255,9 @@ onMounted(checkCookieAndFetchData);
     margin-top: 30px;
     display: flex;
     justify-content: center;
+
+    textarea {
+        border-right: 0;
+    }
 }
 </style>
