@@ -20,10 +20,11 @@ Message.init({
         allowNull: false,
     },
     content: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT('long'),
     },
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
 }, {
     sequelize,
 });
+

@@ -91,7 +91,7 @@ When starting the application without the `-d` flag and cancelling with `ctrl + 
 
 Database backups can be made by dumping the entire database to an SQL file. The file can then be loaded in the database container for rolling back or migrating to a other server/container.
 
-The commands need to be run while the container is running. The `backup.sql`file will be saved to the current working directory on the host machine.
+The commands need to be run while the container is running. The `backup.sql` file will be saved to the current working directory on the host machine.
 
 
 
